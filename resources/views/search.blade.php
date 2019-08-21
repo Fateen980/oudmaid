@@ -237,7 +237,7 @@
     <li>
 
 <div class="checkbox">
-            <label class="checkbox-inline"><input type="checkbox" value=""> Maid With Video</label>
+            <label class="checkbox-inline"><input type="checkbox" name="withVedio" value="1"> Maid With Video</label>
 </div>
 
 </li>

@@ -496,13 +496,18 @@
 
 </div>
 
-
-
-
+@if($youtubeURL != '')
+<div class="education item">
+<h3>Maid Vedio</i></h3>
+<iframe width="700" height="315" src="https://www.youtube.com/embed/{{ $youtubeURL}}
+?autoplay=1&autohide=1&controls=1&showinfo=0&modestbranding=1&rel=0"></iframe>
+</div>
+@endif
 <div class="education item">
 <h3>Maid Introduction</i></h3>
 
 <p>{{ $maid->introduction }}</p>
+
 
 </div>
 </div>

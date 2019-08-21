@@ -432,7 +432,7 @@
                     </a>
                   </figure>
                   <div class="item-body">
-                    <h3 class="job-title"><a href="/maidProfile/{{ $maid->id }}">{{ $maid->name }}</a></h3>
+                    <h5 class="job-title"><a href="/maidProfile/{{ $maid->id }}">{{ $maid->name }}</a></h5>
                     <div class="adderess">
         
                       
@@ -536,18 +536,22 @@
         
 
         <br>
-<ul class="pagination">
+        <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <ul class="pagination">
 
 {{ $maids->links() }}
 
 </ul> 
+        </div>
+
          
          
         
        
-        </div>
-      </div>
-    </section>
+  </div>
+</div>
+</section>
     <!-- Featured Jobs Section End -->
 
 

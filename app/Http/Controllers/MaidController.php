@@ -8,7 +8,7 @@ use App\Maid;
 use App\Traits\UploadTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 use Merujan99\LaravelVideoEmbed\Providers\LaravelVideoEmbedServiceProvider as LaravelVideoEmbed;
-
+use Illuminate\Support\Facades\Validator;
 
 class MaidController extends Controller
 {
@@ -119,7 +119,7 @@ class MaidController extends Controller
             $maid->realPath        = $realPath;
             $maid->introduction    = $request->input('introduction');
             $maid->agency_id       = $agency->agency_id;
-            $maid->website         = $request->input('website');
+            $maid->website         = ! is_null($request->input('website')) ? $request->input('website') : '';
             $maid->numberChildren  = $request->input('numberofchildren');
             $maid->expectedSalary  = $request->input('salary');
             $maid->height          = $request->input('height');
@@ -153,33 +153,22 @@ class MaidController extends Controller
   public function profile($id = -1) {
 
 
- 
+   
+    $maid     =  DB::table('maids')->where('id' , $id)->first();
     $maids    =  DB::table('maids')->where('id' , $id)->get();
     $agencies =  DB::table('agencies')->get();
 
+        $youtubeURL = '';
+    if( ! empty($maid->website)) {
 
-    //URL to be used for embed generation
-    $url = "https://www.youtube.com/watch?v=8eK-5ivYb3o";
+        preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $maid->website, $matches);
+        $youtubeURL = isset($matches[1]) ? $matches[1]: '';
 
-    //Optional array of website names, if present any websites not in the array will result in false being returned by the parser
-    $whitelist = ['YouTube', 'Vimeo'];
-
-    //Optional parameters to be appended to embed
-    $params = [
-        'autoplay' => 1,
-        'loop' => 1
-    ];
-
-    //Optional attributes for embed container
-    $attributes = [
-    'type' => null,
-    'class' => 'iframe-class',
-    'data-html5-parameter' => true
-    ];
+    }
 
 
-
-    return view('maid', ['maids' => $maids , 'agencies' => $agencies ]);
+    
+    return view('maid', ['maids' => $maids , 'agencies' => $agencies , 'youtubeURL' => $youtubeURL ]);
 
   }
 
@@ -212,6 +201,10 @@ class MaidController extends Controller
          if(request('maidType') !== NULL) 
             $maidTypeWHERE = array('type','=',request('maidType'));
   
+            $withVedioWHERE = array('id','<>','');
+         if(request('withVedio') !== NULL) 
+            $withVedioWHERE = array('website','<>','');
+            
 
 
                 $nationalityWHERE = $nationalityWHERE = array('nationality','<>',0);
@@ -288,7 +281,7 @@ class MaidController extends Controller
             $maids    =  DB::table('maids')->where($WHERE)->paginate(8);
         }
         else
-            $maids    =  DB::table('maids')->where([$maidTypeWHERE , $nationalityWHERE , $educationWHERE , $ageWHERE , $mStatusWHERE , $languageWHERE])
+            $maids    =  DB::table('maids')->where([$maidTypeWHERE , $nationalityWHERE , $educationWHERE , $ageWHERE , $mStatusWHERE , $languageWHERE , $withVedioWHERE])
                                            ->orderBy('updated_at', 'desc')
                                            ->paginate(8);
 

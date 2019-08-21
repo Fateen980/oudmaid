@@ -1245,8 +1245,7 @@ label {
     margin: 0 0 4px 0;
 }
 .featured-jobs .item-body .job-title a {
-    font-size: 16px;
-    text-transform: uppercase;
+    font-size: 12px;
 }
 .featured-jobs .item-body .job-title a:hover {
     color: #ff4f57;
