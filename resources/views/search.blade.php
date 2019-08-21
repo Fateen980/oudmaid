@@ -466,7 +466,7 @@
 </div>
 
 <div class="col-md-3">
-<p>Ref : {{ $maid->refCode }}</p>
+<p>Ref : {{ $maid->id }}</p>
 </div>
 </div>
 </div>

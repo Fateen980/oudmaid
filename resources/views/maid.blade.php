@@ -250,7 +250,7 @@
 </div>
 <div class="author-info">
  <h3>Maid Name : {{ $maid->name }}</h3>
-<p class="sub-title">Ref Code : {{ $maid->refCode }}</p>
+<p class="sub-title">Ref Code : {{ $maid->id }} </p>
 
 </div>
 </div>
@@ -314,11 +314,44 @@
 <br>
 <h4>Date Of Birth</h4>
 
-<span class="date"> {{ $maid->age }} </span>
+<span class="date">  </span>
 
 <br>
 <h4>Place Of Birth</h4>
-<p>Philpense</p>
+<p>@switch($maid->nationality)
+                        @case(1)
+                        Filipino
+                        @break
+
+                        @case(2)
+                        Indonesian
+                        @break
+
+                        @case(3)
+                        Myanmese
+                        @break
+
+
+                        @case(4)
+                        Indian
+                        @break
+
+
+                        @case(5)
+                        Sri Lankan
+                        @break
+
+                        @case(6)
+                        Cambodian
+                        @break
+
+                        @case(7)
+                        Bangladeshi
+                        @break
+
+                        @default
+                        No Preference
+                        @endswitch</p>
 
 
 <br>
